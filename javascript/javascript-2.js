@@ -1,13 +1,11 @@
-const promiseReduce = (asyncFunctions, reduce, initialValue) => {
-    let promiseChain = Promise.resolve(initialValue);
-    let accumulator = initialValue;
-    asyncFunctions.forEach(
-        asyncFunction => promiseChain = promiseChain
-            .then(asyncFunction)
-            .then(result => accumulator = reduce(accumulator, result))
-    );
-    return promiseChain;
-};
+const promiseReduce = (asyncFunctions, reduce, initialValue) => asyncFunctions.reduce(
+    async (previousValue, item) => {
+        const memo = await previousValue;
+        const current = await item();
+        return reduce(memo, current);
+    },
+    Promise.resolve(initialValue)
+);
 
 const test_1 = async () => {
     const fn1 = () => Promise.resolve(1);
@@ -23,5 +21,4 @@ const test_2 = async () => {
     console.log("Test 2 is passed: " + (result === 2));
 };
 
-test_1();
-test_2();
+test_1().then(test_2);
