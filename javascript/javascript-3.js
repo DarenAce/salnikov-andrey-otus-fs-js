@@ -6,11 +6,20 @@ const getPath = element => {
     while (element.parentElement !== null) {
         const parent = element.parentElement;
         const number = Array.prototype.indexOf.call(parent.children, element) + 1;
-        elements.push(`${element.tagName}:nth-child(${number})`);
+        elements.push({
+            "name": element.tagName,
+            "number": number
+        });
         element = parent;
     }
-    elements.push(element.tagName);
-    return elements.reverse().join(" > ");
+    elements.push({ "name": element.tagName });
+    return buildPath(elements.reverse());
+};
+
+const buildPath = elements => {
+    return elements
+        .map(element => element.name + (element.number === undefined ? `:nth-child(${element.number})` : ""))
+        .join(" > ");
 };
 
 const test = id => {
@@ -37,5 +46,5 @@ const runTests = () => {
     test("26");
     test(null);
     test();
-    test(3);
+    test({"id": 3});
 };
