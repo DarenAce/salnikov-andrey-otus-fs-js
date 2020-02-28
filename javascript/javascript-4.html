@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        div {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <template id="tree">
+        <div class="id"></div>
+        <div class="children"></div>
+    </template>
+    <template id="leaf">
+        <div class="id"></div>
+    </template>
+    <template id="styles">
+        <style>
+            :host {
+                display: flex;
+            }
+
+            my-tree,
+            my-leaf {
+                display: block;
+                border: 1px solid black;
+                border-radius: 5px;
+            }
+
+            my-tree:nth-of-type(odd) {
+                background-color: steelblue;
+            }
+
+            my-tree:nth-of-type(even) {
+                background-color: cornflowerblue;
+            }
+
+            my-leaf:nth-of-type(odd) {
+                background-color: wheat;
+            }
+
+            my-leaf:nth-of-type(even) {
+                background-color: white;
+            }
+
+            .id {
+                padding-left: 10px;
+                line-height: 30px;
+            }
+
+            my-leaf>.id {
+                width: 30px;
+                height: 30px;
+                padding: 0;
+                text-align: center;
+                line-height: 30px;
+            }
+
+            .children {
+                margin-left: 30px;
+            }
+        </style>
+    </template>
+    <div id="tree-1" class="tree-container"></div>
+    <div id="tree-2" class="tree-container"></div>
+    <div id="tree-3" class="tree-container"></div>
+</body>
+
+<script>
+    const tree_1 = {
+        "id": 1,
+        "items": [{
+            "id": 2,
+            "items": [{ "id": 3 }]
+        }]
+    };
+    document.querySelector("#tree-1").setAttribute("data-tree", JSON.stringify(tree_1));
+    const tree_2 = {
+        "id": 1,
+        "items": [
+            {
+                "id": 2,
+                "items": [
+                    { "id": 3 },
+                    { "id": 4 },
+                    { "id": 5 },
+                    { "id": 6 }
+                ]
+            },
+            {
+                "id": 7,
+                "items": [
+                ]
+            },
+            {
+                "id": 8,
+                "items": [
+                    { "id": 9 },
+                    { "id": 10 },
+                    { "id": 11 }
+                ]
+            },
+        ]
+    };
+    document.querySelector("#tree-2").setAttribute("data-tree", JSON.stringify(tree_2));
+    const tree_3 = {
+        "id": 1,
+        "items": [{
+            "id": 2,
+            "items": []
+        }]
+    };
+    document.querySelector("#tree-3").setAttribute("data-tree", JSON.stringify(tree_3));
+</script>
+
+<script src="javascript-4.js"></script>
+
+</html>
