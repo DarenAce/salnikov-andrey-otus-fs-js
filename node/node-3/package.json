@@ -1,0 +1,15 @@
+{
+    "author": "Andrey Salnikov",
+    "name": "node-3",
+    "description": "Homework #3 for \"Node.js\" module in \"Fullstack JavaScript developer\" course on Otus.ru.",
+    "main": "sort.js",
+    "private": true,
+    "scripts": {
+        "generate": "node generate.js",
+        "sort": "node --max-old-space-size=50 sort.js",
+        "test": "jest"
+    },
+    "devDependencies": {
+        "jest": "^25.1.0"
+    }
+}
