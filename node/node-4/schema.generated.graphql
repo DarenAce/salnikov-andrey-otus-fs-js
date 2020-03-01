@@ -1,0 +1,157 @@
+type Customer {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  fullName: String!
+  phone: String!
+  email: String
+}
+
+type Query {
+  allCustomers: [Customer]!
+  getCustomer(id: ID!): Customer
+  allItems: [Item]!
+  getItem(id: ID!): Item
+  allOrders(customer: ID): [Order]!
+  allCustomerOrders(customer: ID!): [Order]!
+  getOrder(id: ID!): Order
+  allProducts: [Product]!
+  getProduct(id: ID!): Product
+  allSpecialOffers: [SpecialOffer]!
+  getSpecialOffer(id: ID!): SpecialOffer
+}
+
+type Mutation {
+  createCustomer(customer: CreateCustomerInput!): Customer
+  updateCustomer(id: ID!, customer: UpdateCustomerInput!): Customer
+  deleteCustomer(id: ID!): Customer
+  createItem(item: CreateItemInput!): Item
+  updateItem(id: ID!, item: UpdateItemInput!): Item
+  deleteItem(id: ID!): Item
+  createOrder(order: CreateOrderInput!): Order
+  updateOrder(id: ID!, order: UpdateOrderInput!): Order
+  changeOrderState(id: ID!, state: OrderState!): Order
+  deleteOrder(id: ID!): Order
+  createProduct(product: CreateProductInput!): Product
+  updateProduct(id: ID!, product: UpdateProductInput!): Product
+  deleteProduct(id: ID!): Product
+  createSpecialOffer(specialOffer: CreateSpecialOfferInput!): SpecialOffer
+  updateSpecialOffer(id: ID!, specialOffer: UpdateSpecialOfferInput!): SpecialOffer
+  addProductToOffer(id: ID!, product: ID!): SpecialOffer
+  removeProductFromOffer(id: ID!, product: ID!): SpecialOffer
+  deleteSpecialOffer(id: ID!): SpecialOffer
+}
+
+input CreateCustomerInput {
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String
+}
+
+input UpdateCustomerInput {
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+}
+
+type Item {
+  id: ID!
+  product: Product!
+  order: Order!
+  quantity: Int!
+}
+
+input CreateItemInput {
+  order: ID!
+  product: ID!
+  quantity: Int!
+}
+
+input UpdateItemInput {
+  quantity: Int!
+}
+
+scalar Date
+
+enum OrderState {
+  Prepare
+  Processing
+  Delivering
+  Completed
+  Canceled
+}
+
+type Order {
+  id: ID!
+  customer: Customer!
+  state: OrderState!
+  created: Date!
+  items: [Item]!
+  totalItems: Int
+  totalPrice: Float
+  comment: String
+}
+
+input CreateOrderInput {
+  customer: ID!
+  comment: String
+}
+
+input UpdateOrderInput {
+  customer: ID
+  comment: String
+}
+
+type Product {
+  id: ID!
+  name: String!
+  description: String
+  price: Float!
+}
+
+input CreateProductInput {
+  name: String!
+  description: String
+  price: Float!
+}
+
+input UpdateProductInput {
+  name: String
+  description: String
+  price: Float
+}
+
+type SpecialOffer {
+  id: ID!
+  name: String!
+  description: String
+  startDate: Date!
+  endDate: Date!
+  appliesTo: [Product]!
+  discount: Int!
+}
+
+input CreateSpecialOfferInput {
+  name: String!
+  description: String
+  startDate: Date!
+  endDate: Date!
+  appliesTo: [ID]!
+  discount: Int!
+}
+
+input UpdateSpecialOfferInput {
+  name: String
+  description: String
+  startDate: Date
+  endDate: Date
+  appliesTo: [ID]
+  discount: Int
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}

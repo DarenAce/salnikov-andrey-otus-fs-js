@@ -1,0 +1,42 @@
+scalar Date
+
+type SpecialOffer {
+    id: ID!
+    name: String!
+    description: String
+    startDate: Date!
+    endDate: Date!
+    appliesTo: [Product]!
+    discount: Int!
+}
+
+type Query {
+    allSpecialOffers: [SpecialOffer]!
+    getSpecialOffer(id: ID!): SpecialOffer
+}
+
+type Mutation {
+    createSpecialOffer(specialOffer: CreateSpecialOfferInput!): SpecialOffer
+    updateSpecialOffer(id: ID!, specialOffer: UpdateSpecialOfferInput!): SpecialOffer
+    addProductToOffer(id: ID!, product: ID!): SpecialOffer
+    removeProductFromOffer(id: ID!, product: ID!): SpecialOffer
+    deleteSpecialOffer(id: ID!): SpecialOffer
+}
+
+input CreateSpecialOfferInput {
+    name: String!
+    description: String
+    startDate: Date!
+    endDate: Date!
+    appliesTo: [ID]!
+    discount: Int!
+}
+
+input UpdateSpecialOfferInput {
+    name: String
+    description: String
+    startDate: Date
+    endDate: Date
+    appliesTo: [ID]
+    discount: Int
+}

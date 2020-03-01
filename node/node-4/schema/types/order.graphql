@@ -1,0 +1,43 @@
+scalar Date
+
+enum OrderState {
+    Prepare
+    Processing
+    Delivering
+    Completed
+    Canceled
+}
+
+type Order {
+    id: ID!
+    customer: Customer!
+    state: OrderState!
+    created: Date!
+    items: [Item]!
+    totalItems: Int
+    totalPrice: Float
+    comment: String
+}
+
+type Query {
+    allOrders(customer: ID): [Order]!
+    allCustomerOrders(customer: ID!): [Order]!
+    getOrder(id: ID!): Order
+}
+
+type Mutation {
+    createOrder(order: CreateOrderInput!): Order
+    updateOrder(id: ID!, order: UpdateOrderInput!): Order
+    changeOrderState(id: ID!, state: OrderState!): Order
+    deleteOrder(id: ID!): Order
+}
+
+input CreateOrderInput {
+    customer: ID!
+    comment: String
+}
+
+input UpdateOrderInput {
+    customer: ID
+    comment: String
+}
