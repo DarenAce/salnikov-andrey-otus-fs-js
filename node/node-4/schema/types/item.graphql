@@ -1,0 +1,27 @@
+type Item {
+    id: ID!
+    product: Product!
+    order: Order!
+    quantity: Int!
+}
+
+type Query {
+    allItems: [Item]!
+    getItem(id: ID!): Item
+}
+
+type Mutation {
+    createItem(item: CreateItemInput!): Item
+    updateItem(id: ID!, item: UpdateItemInput!): Item
+    deleteItem(id: ID!): Item
+}
+
+input CreateItemInput {
+    order: ID!
+    product: ID!
+    quantity: Int!
+}
+
+input UpdateItemInput {
+    quantity: Int!
+}
