@@ -1,0 +1,11 @@
+{
+  "name": "node-2",
+  "version": "1.0.0",
+  "description": "Homework #2 for \"Node.js\" module in \"Fullstack JavaScript developer\" course on Otus.ru.",
+  "main": "tree.js",
+  "scripts": {
+    "tree": "node tree.js",
+    "test": "npm run tree -- foo"
+  },
+  "author": "Andrey Salnikov"
+}
