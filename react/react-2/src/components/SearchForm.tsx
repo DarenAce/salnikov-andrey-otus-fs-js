@@ -6,16 +6,10 @@ interface IProps {
     searchValue: string
 }
 
-export default class SearchForm extends Component<IProps> {
-    constructor(props: IProps) {
-        super(props);
-    }
-
-    render() {
-        const { handleSubmit, handleInput, searchValue } = this.props;
-        return <form className="search-form" onSubmit={handleSubmit}>
-            <input type="text" className="search-field" onChange={handleInput} placeholder="Type city name..." />
-            <button type="submit" className="search-button" disabled={searchValue.length === 0}>Search</button>
-        </form>;
-    }
+export default (props: IProps) => {
+    const { handleSubmit, handleInput, searchValue } = props;
+    return <form className="search-form" onSubmit={handleSubmit}>
+        <input type="text" className="search-field" onChange={handleInput} placeholder="Type city name..." />
+        <button type="submit" className="search-button" disabled={searchValue.length === 0}>Search</button>
+    </form>;
 }

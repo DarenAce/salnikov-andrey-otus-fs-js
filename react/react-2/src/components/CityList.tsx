@@ -17,9 +17,9 @@ export default class CityList extends Component<IProps> {
             <h2 className="favorites-header">Favorite cities</h2>
             {cities.length > 0 && (
                 <ul className="favorites-list">
-                    {cities.map((city, number) => (
+                    {cities.map(({ name }, number) => (
                         <li className="favorites-row" key={number}>
-                            <button className="show-city-weather-button" onClick={selectCity(number)}>{city.name}</button>
+                            <button className="show-city-weather-button" onClick={selectCity(number)}>{name}</button>
                             <button className="delete-button" onClick={removeCity(number)}>Delete</button>
                         </li>
                     ))}

@@ -1,7 +1,7 @@
 import React, { Component, FormEvent, MouseEvent } from "react";
 
 import "$root/assets/style/main.css";
-import { weatherApiUrlPlusId } from "../config";
+import { searchWeather } from "../utils";
 import SearchForm from "./SearchForm";
 import CityWeather from "./CityWeather";
 import CityList from "./CityList";
@@ -30,7 +30,6 @@ export default class WeatherApp extends Component<IProps, IState> {
             cityWeather: null
         };
 
-        this.searchWeather = this.searchWeather.bind(this);
         this.handleInput = this.handleInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.addCityToList = this.addCityToList.bind(this);
@@ -38,28 +37,14 @@ export default class WeatherApp extends Component<IProps, IState> {
         this.selectCityFromList = this.selectCityFromList.bind(this);
     }
 
-    async searchWeather() {
-        let cityWeather = null;
-        const searchResponseResult = await fetch(`${weatherApiUrlPlusId}&units=metric&q=${this.state.city}`);
-        if (searchResponseResult.status === 200) {
-            const response = await searchResponseResult.json();
-            cityWeather = {
-                name: response.name,
-                ...response.main,
-                wind: response.wind
-            };
-        }
-        this.setState({ cityWeather });
-    };
-
     handleInput(e: FormEvent<HTMLInputElement>) {
         const city = e.currentTarget.value;
-        this.setState({ city });
+        this.setState({ ...this.state, city });
     }
 
-    handleSubmit(e: FormEvent<HTMLFormElement>) {
+    async handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        this.searchWeather();
+        this.setState({ ...this.state, cityWeather: await searchWeather(this.state.city) });
     }
 
     addCityToList() {
@@ -71,21 +56,21 @@ export default class WeatherApp extends Component<IProps, IState> {
             } else {
                 cityList.splice(cityIndex, 1);
             }
-            this.setState({ cityList });
+            this.setState({ ...this.state, cityList });
         }
     }
 
     removeCityFromList(cityIndex: number) {
         return () => {
             const cityList = this.state.cityList.filter((element, index) => index !== cityIndex);
-            this.setState({ cityList });
+            this.setState({ ...this.state, cityList });
         }
     }
 
     selectCityFromList(cityIndex: number) {
-        return () => {
+        return async () => {
             const city = this.state.cityList[cityIndex];
-            this.setState({ city: city.name }, this.searchWeather)
+            this.setState({ ...this.state, city: city.name, cityWeather: await searchWeather(city.name) });
         };
     }
 
