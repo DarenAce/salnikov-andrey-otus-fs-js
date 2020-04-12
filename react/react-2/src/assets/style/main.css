@@ -1,0 +1,204 @@
+* {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    color: #2b2a2a;
+    letter-spacing: 1px;
+    vertical-align: top;
+}
+
+h1 {
+    text-align: center;
+    font-weight: 700;
+    font-size: 30px;
+}
+
+h2 {
+    text-align: left;
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+button {
+    border: 0;
+    padding: 8px 20px;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: white;
+    cursor: pointer;
+}
+
+button:active,
+button:focus {
+    outline: none;
+}
+
+.container {
+    width: 700px;
+    margin: 0 auto;
+    padding: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+.main {
+    display: grid;
+    grid-template-columns: 330px auto;
+}
+
+.app-header {
+    margin-bottom: 20px;
+}
+
+.favorites-section {
+    padding-right: 20px;
+    box-shadow: 2px 0px 0px 0px rgba(0, 0, 0, 0.1);
+}
+
+.favorites-header {
+    padding-left: 8px;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+.favorites-row {
+    display: grid;
+    grid-template-columns: auto 33px;
+    grid-auto-rows: minmax(33px, auto);
+    border-radius: 2px;
+}
+
+.show-city-weather-button {
+    padding: 8px;
+    text-align: left;
+}
+
+.show-city-weather-button:hover,
+.show-city-weather-button:hover + .delete-button {
+    color: white;
+    background-color: rgba(52, 98, 197, 0.4);
+    transition: 0.2s ease-in-out;
+}
+
+.show-city-weather-button:hover {
+    border-radius: 5px 0 0 5px;
+    transition: 0.2s ease-in-out;
+}
+
+.show-city-weather-button:hover + .delete-button {
+    border-radius: 0 5px 5px 0;
+}
+
+.delete-button {
+    position: relative;
+    padding: 8px 8px;
+    font-size: 0px;
+    border-radius: 5px;
+}
+
+.delete-button::before,
+.delete-button::after {
+    content: '';
+    position: absolute;
+    top: 14px;
+    left: 9px;
+    width: 15px;
+    height: 3px;
+    background-color: black;
+    opacity: 0.8;
+    transform: rotate(-45deg);
+}
+
+.delete-button:hover::before,
+.delete-button:hover::after {
+    background-color: white;
+    transition: 0.2s ease-in-out;
+}
+
+.delete-button::before {
+    transform: rotate(45deg);
+}
+
+.delete-button:hover {
+    background-color: #b93a3a;
+    transition: 0.2s ease-in-out;
+}
+
+.search-section {
+    padding-left: 20px;
+}
+
+.search-form {
+    display: grid;
+    grid-template-columns: auto 100px;
+    margin-bottom: 10px;
+}
+
+.search-field {
+    padding: 6px 5px;
+}
+
+.search-button {
+    color: white;
+    background-color: rgb(52, 98, 197);
+    border-radius: 0px 5px 5px 0px;
+}
+
+.search-button:hover {
+    padding: 7px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: rgba(52, 98, 197, 0.8);
+    transition: background-color 0.2s ease-out;
+}
+
+.search-button:active {
+    box-shadow: inset 1px 1px 5px -1px;
+    background-color: rgba(52, 98, 197, 0.6);
+}
+
+.city-weather-card {
+    padding: 0 20px 8px 20px;
+}
+
+.city-weather-header {
+    display: flex;
+    align-items: start;
+}
+
+.city-weather-header > h2 {
+    width: 200px;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 10px;
+    line-height: 35px;
+    vertical-align: middle;
+}
+
+.add-to-favorites-button {
+    padding: 0;
+    transition: all 0.2s;
+}
+
+.add-to-favorites-button:hover,
+.add-to-favorites-button:focus {
+    transform: scale(1.2);
+    transition: all 0.2s;
+}
+
+.add-to-favorites-button svg {
+    padding: 5px;
+}
+
+.add-to-favorites-button > .added-to-favorites {
+    fill: #fae805;
+}
+
+.conditions {
+    width: 100%;
+}
