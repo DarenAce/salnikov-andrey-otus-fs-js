@@ -5,3 +5,5 @@ Homework for this module is stored in `javascript` directory each in separate `.
 Homework for this module is stored in `node` directory each in separate subdirectory. Description is available in `readme.md` file.
 ## Module 3. React.
 Homework for this module is stored in `react` directory each in separate subdirectory. Description is available in `readme.md` file.
+## Module 4. Vue.
+Homework for this module is stored in `vue` directory each in separate subdirectory. Description is available in `readme.md` file.
