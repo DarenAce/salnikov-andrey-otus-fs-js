@@ -1,19 +1,14 @@
 export enum Language {
-    En = "eng",
-    Ru = "rus",
-    Es = "spa"
+    En = "en",
+    Ru = "ru",
+    Es = "es",
 }
 
 export enum TranslationDirection {
-    EnToRu = "engToRus",
-    RuToEn = "rusToEng",
-    EnToEs = "engToSpa",
-    EsToEn = "spaToEng"
-}
-
-export interface NavLink {
-    label: string;
-    path: string;
+    EnToRu = "en-ru",
+    RuToEn = "ru-en",
+    EnToEs = "en-es",
+    EsToEn = "es-en",
 }
 
 export interface Word {
@@ -22,6 +17,7 @@ export interface Word {
 }
 
 export interface WordPair {
+    added: Date;
     original: Word;
     translation: Word;
 }
@@ -31,12 +27,29 @@ export interface WordPairsByAdditionDate {
     wordPairs: WordPair[];
 }
 
-export interface StringSelectValue {
-    label: string;
-    value: string;
-}
-
 export interface NumberSelectValue {
     label: string;
     value: number;
+}
+
+export interface TranslationDirectionSelectValue {
+    label: string;
+    value: TranslationDirection;
+}
+
+export interface ApiResponse {
+    code: number;
+    lang: string;
+    text: string[];
+}
+
+export interface AppSettings {
+    numberOfQuestions: number;
+    secondsPerQuestion: number;
+    translationDirection: TranslationDirection;
+}
+
+export interface NavLink {
+    label: string;
+    path: string;
 }

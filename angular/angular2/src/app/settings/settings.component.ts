@@ -1,76 +1,72 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import {
     NumberSelectValue,
-    StringSelectValue,
-    TranslationDirection
+    TranslationDirection,
+    TranslationDirectionSelectValue,
 } from "../app.interfaces";
+import {
+    numbersOfQuestions,
+    secondsPerQuestion,
+    translationDirections,
+} from "../app.config";
+import { StorageService } from "../storage.service";
 
 @Component({
     selector: "app-settings",
     templateUrl: "./settings.component.html",
-    styleUrls: ["./settings.component.css"]
+    styleUrls: ["./settings.component.css"],
 })
-export class SettingsComponent {
-    selectedTransaltionDirection: string;
+export class SettingsComponent implements OnInit {
+    savedNumberOfQuestions: number;
+    savedSecondsPerQuestion: number;
+    savedTranslationDirection: TranslationDirection;
+
     selectedNumberOfQuestions: number;
     selectedSecondsPerQuestion: number;
+    selectedTranslationDirection: TranslationDirection;
 
-    translationDirections: StringSelectValue[] = [
-        {
-            label: "English — Russian",
-            value: TranslationDirection.EnToRu
-        },
-        {
-            label: "Russian — English",
-            value: TranslationDirection.RuToEn
-        },
-        {
-            label: "English — Spanish",
-            value: TranslationDirection.EnToEs
-        },
-        {
-            label: "Spanish — English",
-            value: TranslationDirection.EsToEn
-        }
-    ];
+    numbersOfQuestions: NumberSelectValue[] = numbersOfQuestions;
+    secondsPerQuestion: NumberSelectValue[] = secondsPerQuestion;
+    translationDirections: TranslationDirectionSelectValue[] = translationDirections;
 
-    numbersOfQuestions: NumberSelectValue[] = [
-        {
-            label: "5",
-            value: 5
-        },
-        {
-            label: "10",
-            value: 10
-        },
-        {
-            label: "20",
-            value: 20
-        },
-        {
-            label: "50",
-            value: 50
-        }
-    ];
+    constructor(private storage: StorageService) {}
 
-    secondsPerQuestion: NumberSelectValue[] = [
-        {
-            label: "10 sec",
-            value: 10
-        },
-        {
-            label: "30 sec",
-            value: 30
-        },
-        {
-            label: "1 min",
-            value: 60
-        }
-    ];
+    ngOnInit() {
+        this.loadSavedSettings();
+    }
 
-    constructor() {
-        this.selectedTransaltionDirection = this.translationDirections[0].value;
-        this.selectedNumberOfQuestions = this.numbersOfQuestions[0].value;
-        this.selectedSecondsPerQuestion = this.secondsPerQuestion[0].value;
+    loadSavedSettings() {
+        const {
+            numberOfQuestions,
+            secondsPerQuestion,
+            translationDirection,
+        } = this.storage.getSettings();
+        this.savedNumberOfQuestions = numberOfQuestions;
+        this.savedSecondsPerQuestion = secondsPerQuestion;
+        this.savedTranslationDirection = translationDirection;
+        this.selectedNumberOfQuestions = numberOfQuestions;
+        this.selectedSecondsPerQuestion = secondsPerQuestion;
+        this.selectedTranslationDirection = translationDirection;
+    }
+
+    onReset() {
+        this.loadSavedSettings();
+    }
+
+    onSave() {
+        this.storage.setSettings({
+            numberOfQuestions: this.selectedNumberOfQuestions,
+            secondsPerQuestion: this.selectedSecondsPerQuestion,
+            translationDirection: this.selectedTranslationDirection,
+        });
+        this.loadSavedSettings();
+    }
+
+    isAnySettingChanged() {
+        return (
+            this.selectedNumberOfQuestions !== this.savedNumberOfQuestions ||
+            this.selectedSecondsPerQuestion !== this.savedSecondsPerQuestion ||
+            this.selectedTranslationDirection !== this.savedTranslationDirection
+        );
     }
 }

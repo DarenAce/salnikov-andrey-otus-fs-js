@@ -2,12 +2,12 @@
     <p>
         <mat-form-field class="settings-form-select">
             <mat-label>Translation direction</mat-label>
-            <mat-select [(value)]="selectedTransaltionDirection">
+            <mat-select [(value)]="selectedTranslationDirection">
                 <mat-option
-                    *ngFor="let pair of translationDirections"
-                    [value]="pair.value"
+                    *ngFor="let direction of translationDirections"
+                    [value]="direction.value"
                 >
-                    {{pair.label}}
+                    {{direction.label}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
@@ -39,10 +39,22 @@
         </mat-form-field>
     </p>
     <p>
-        <button mat-stroked-button color="accent" class="button back-button">
-            Back
+        <button
+            mat-stroked-button
+            [disabled]="!isAnySettingChanged()"
+            color="accent"
+            class="button reset-button"
+            (click)="onReset()"
+        >
+            Reset
         </button>
-        <button mat-stroked-button color="accent" class="button save-button">
+        <button
+            mat-stroked-button
+            [disabled]="!isAnySettingChanged()"
+            color="accent"
+            class="button save-button"
+            (click)="onSave()"
+        >
             Save
         </button>
     </p>

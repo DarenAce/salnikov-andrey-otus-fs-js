@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from "@angular/material/tabs";
@@ -8,31 +9,39 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
+import { MatDialogModule } from "@angular/material/dialog";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DictionaryComponent } from './dictionary/dictionary.component';
 import { StudyComponent } from './study/study.component';
 import { SettingsComponent } from './settings/settings.component';
+import { AddWordDialogComponent } from './add-word-dialog/add-word-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DictionaryComponent,
+    SettingsComponent,
     StudyComponent,
-    SettingsComponent
+    AddWordDialogComponent
+  ],
+  entryComponents: [
+    AddWordDialogComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
+    HttpClientModule,
     FormsModule,
     MatTabsModule,
     MatCardModule,
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

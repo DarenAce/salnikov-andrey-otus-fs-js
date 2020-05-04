@@ -9,6 +9,6 @@
 }
 
 .add-new-button {
-    width: 100px;
+    min-width: 100px;
     align-self: start;
 }

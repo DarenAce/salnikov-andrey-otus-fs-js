@@ -1,105 +1,54 @@
-import { Component } from "@angular/core";
-import {
-    WordPairsByAdditionDate,
-    Language
-} from "../app.interfaces";
+import { Component, OnInit } from "@angular/core";
+import { WordPairsByAdditionDate, WordPair } from "../app.interfaces";
+import { MatDialog } from "@angular/material/dialog";
+import { AddWordDialogComponent } from "../add-word-dialog/add-word-dialog.component";
+import { StorageService } from "../storage.service";
 
 @Component({
     selector: "app-dictionary",
     templateUrl: "./dictionary.component.html",
-    styleUrls: ["./dictionary.component.css"]
+    styleUrls: ["./dictionary.component.css"],
 })
-export class DictionaryComponent {
-    wordPairsByDates: WordPairsByAdditionDate[] = [
-        {
-            added: new Date(2017, 4, 4),
-            wordPairs: [
-                {
-                    original: {
-                        spelling: "to apply",
-                        language: Language.En
-                    },
-                    translation: {
-                        spelling: "добавлять",
-                        language: Language.Ru
-                    }
-                },
-                {
-                    original: {
-                        spelling: "education",
-                        language: Language.En
-                    },
-                    translation: {
-                        spelling: "образование",
-                        language: Language.Ru
-                    }
-                },
-                {
-                    original: {
-                        spelling: "to go",
-                        language: Language.En
-                    },
-                    translation: {
-                        spelling: "идти",
-                        language: Language.Ru
-                    }
-                },
-                {
-                    original: {
-                        spelling: "responsible",
-                        language: Language.En
-                    },
-                    translation: {
-                        spelling: "ответственный",
-                        language: Language.Ru
-                    }
-                }
-            ]
-        },
-        {
-            added: new Date(2020, 3, 26),
-            wordPairs: [
-                {
-                    original: {
-                        spelling: "to apply",
-                        language: Language.En
-                    },
-                    translation: {
-                        spelling: "aplicar",
-                        language: Language.Es
-                    }
-                },
-                {
-                    original: {
-                        spelling: "education",
-                        language: Language.En
-                    },
-                    translation: {
-                        spelling: "educación",
-                        language: Language.Es
-                    }
-                },
-                {
-                    original: {
-                        spelling: "to go",
-                        language: Language.En
-                    },
-                    translation: {
-                        spelling: "ir",
-                        language: Language.Es
-                    }
-                },
-                {
-                    original: {
-                        spelling: "responsible",
-                        language: Language.En
-                    },
-                    translation: {
-                        spelling: "responsable",
-                        language: Language.Es
-                    }
-                }
-            ]
-        }
-    ];
+export class DictionaryComponent implements OnInit {
+    newWordPair: WordPair;
+    wordPairsByDates: WordPairsByAdditionDate[];
+
+    constructor(private storage: StorageService, public dialog: MatDialog) {}
+
+    ngOnInit() {
+        this.loadSavedWordPairs();
+    }
+
+    loadSavedWordPairs() {
+        this.wordPairsByDates = [];
+        const wordPairs = this.storage.getWords();
+        wordPairs.forEach((pair) => {
+            const i = this.wordPairsByDates.findIndex(
+                (pairsByDate) =>
+                    pair.added.toDateString() ===
+                    pairsByDate.added.toDateString()
+            );
+            if (i === -1) {
+                this.wordPairsByDates.push({
+                    added: new Date(pair.added.toDateString()),
+                    wordPairs: [pair],
+                });
+            } else {
+                this.wordPairsByDates[i].wordPairs.push(pair);
+            }
+        });
+    }
+
+    openDialog() {
+        const dialogRef = this.dialog.open(AddWordDialogComponent, {
+            width: "500px",
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            if (result) {
+                this.storage.addWord(result);
+                this.loadSavedWordPairs();
+            }
+        });
+    }
 }
