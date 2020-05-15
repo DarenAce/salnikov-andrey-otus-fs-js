@@ -1,0 +1,15 @@
+.study-form {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.word-to-translate {
+    padding: 30px 0;
+    font-size: 24px;
+    text-align: center;
+    border: 1px solid white;
+    border-radius: 5px;
+}
