@@ -1,0 +1,21 @@
+.add-new-word-dialog-title {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.add-new-word-dialog-title > h1 {
+    flex-grow: 1;
+}
+
+.add-new-word-dialog-content {
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.button {
+    min-width: 100px;
+}
+
+.close-button:hover {
+    color: red;
+}

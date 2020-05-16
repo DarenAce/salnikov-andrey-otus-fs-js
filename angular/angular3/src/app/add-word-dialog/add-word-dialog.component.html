@@ -1,0 +1,85 @@
+<div mat-dialog-title class="add-new-word-dialog-title">
+    <h1>Add new word</h1>
+    <button
+        mat-button
+        mat-icon-button
+        mat-dialog-close
+        class="close-button"
+    >
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+<div mat-dialog-content class="add-new-word-dialog-content">
+    <mat-form-field class="add-new-word-dialog-select">
+        <mat-label>Translation direction</mat-label>
+        <mat-select
+            [(value)]="currentTranslationDirection"
+            (selectionChange)="onTranslationDirectionChange()"
+        >
+            <mat-option
+                *ngFor="let direction of translationDirections"
+                [value]="direction.value"
+            >
+                {{direction.label}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field floatLabel="always">
+        <mat-label>Original</mat-label>
+        <input
+            matInput
+            type="text"
+            name="original"
+            [disabled]="!newWordPair.original.language"
+            [(ngModel)]="newWordPair.original.spelling"
+        />
+        <button
+            *ngIf="newWordPair.original.spelling"
+            mat-button
+            matSuffix
+            mat-icon-button
+            (click)="newWordPair.original.spelling=''; newWordPair.translation.spelling='';"
+        >
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+    <mat-form-field floatLabel="always">
+        <mat-label>Translation</mat-label>
+        <input
+            matInput
+            type="text"
+            name="translation"
+            [disabled]="!newWordPair.original.spelling"
+            [(ngModel)]="newWordPair.translation.spelling"
+        />
+        <button
+            *ngIf="newWordPair.translation.spelling"
+            mat-button
+            matSuffix
+            mat-icon-button
+            (click)="newWordPair.translation.spelling=''"
+        >
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+</div>
+<mat-dialog-actions align="end">
+    <button
+        mat-stroked-button
+        color="accent"
+        class="button translate-button"
+        [disabled]="!newWordPair.original.spelling"
+        (click)="onTranslateClick()"
+    >
+        Translate
+    </button>
+    <button
+        mat-stroked-button
+        color="accent"
+        class="button add-button"
+        [disabled]="!newWordPair.translation.spelling"
+        [mat-dialog-close]="newWordPair"
+    >
+        Add
+    </button>
+</mat-dialog-actions>
