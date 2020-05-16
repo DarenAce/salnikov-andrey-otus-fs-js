@@ -1,16 +1,14 @@
 import { Injectable } from "@angular/core";
 import { WordPair, AppSettings } from "./app.interfaces";
+import { localStorageSettingsKey, localStorageWordListKey } from "./app.config";
 
 @Injectable({
     providedIn: "root",
 })
 export class StorageService {
-    private wordsListName = "learnLanguagesApp.words";
-    private settingsListName = "learnLanguagesApp.settings";
-
     getWords(): WordPair[] {
-        return localStorage.getItem(this.wordsListName)
-            ? JSON.parse(localStorage.getItem(this.wordsListName), (key, value) => {
+        return localStorage.getItem(localStorageWordListKey)
+            ? JSON.parse(localStorage.getItem(localStorageWordListKey), (key, value) => {
                 if (key === "added") {
                     return new Date(value);
                 }
@@ -20,7 +18,7 @@ export class StorageService {
     }
 
     setWords(words: WordPair[]): void {
-        localStorage.setItem(this.wordsListName, JSON.stringify(words));
+        localStorage.setItem(localStorageWordListKey, JSON.stringify(words));
     }
 
     addWord(word: WordPair): void {
@@ -30,12 +28,12 @@ export class StorageService {
     }
 
     getSettings(): AppSettings {
-        return localStorage.getItem(this.settingsListName)
-            ? JSON.parse(localStorage.getItem(this.settingsListName))
+        return localStorage.getItem(localStorageSettingsKey)
+            ? JSON.parse(localStorage.getItem(localStorageSettingsKey))
             : {};
     }
 
     setSettings(settings: AppSettings): void {
-        localStorage.setItem(this.settingsListName, JSON.stringify(settings));
+        localStorage.setItem(localStorageSettingsKey, JSON.stringify(settings));
     }
 }

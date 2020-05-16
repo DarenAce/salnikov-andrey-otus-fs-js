@@ -56,3 +56,9 @@ export const secondsPerQuestion: NumberSelectValue[] = [
         value: 60,
     },
 ];
+
+const appLocalStorageKeyPrefix = "learnLanguagesApp";
+
+export const localStorageWordListKey = appLocalStorageKeyPrefix + ".words";
+
+export const localStorageSettingsKey = appLocalStorageKeyPrefix + ".settings";

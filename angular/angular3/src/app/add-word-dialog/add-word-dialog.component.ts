@@ -1,5 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { MatDialogRef } from "@angular/material/dialog";
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
 import {
     Language,
     TranslationDirection,
@@ -15,19 +17,25 @@ import { translationDirectionToLanguagePair } from "../app.utils";
     templateUrl: "./add-word-dialog.component.html",
     styleUrls: ["./add-word-dialog.component.css"],
 })
-export class AddWordDialogComponent implements OnInit {
+export class AddWordDialogComponent implements OnInit, OnDestroy {
     newWordPair: WordPair;
     currentTranslationDirection: TranslationDirection;
     translationDirections: TranslationDirectionSelectValue[] = translationDirections;
+    subscription: Subscription;
 
     constructor(
         public dialogRef: MatDialogRef<AddWordDialogComponent>,
+        private popUp: MatSnackBar,
         private translationService: TranslationService
     ) {}
 
     ngOnInit(): void {
         this.currentTranslationDirection = translationDirections[0].value;
         this.onTranslationDirectionChange();
+    }
+
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
     }
 
     onTranslationDirectionChange(): void {
@@ -48,7 +56,7 @@ export class AddWordDialogComponent implements OnInit {
     }
 
     onTranslateClick(): void {
-        const subscription = this.translationService
+        this.subscription = this.translationService
             .translate(
                 this.newWordPair.original.spelling,
                 this.currentTranslationDirection
@@ -57,8 +65,15 @@ export class AddWordDialogComponent implements OnInit {
                 (wordPair) => {
                     this.newWordPair = wordPair;
                 },
-                (error) => console.log(error),
+                (error) => this.showErrorMessage(`Couldn't translate a word. Error: ${JSON.stringify(error.message)}`),
                 () => console.log("Translation completed.")
             );
+    }
+
+    showErrorMessage(message: string) {
+        this.popUp.open(message, "\u2715", {
+            duration: 5000,
+            verticalPosition: "top"
+        });
     }
 }
