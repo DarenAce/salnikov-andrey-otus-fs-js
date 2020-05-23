@@ -1,0 +1,16 @@
+<form class="dictionary-form">
+    <mat-card *ngFor="let wordsByDate of wordPairsByDates" class="words-card">
+        <mat-card-title
+            >Added at {{wordsByDate.added.toLocaleDateString()}}</mat-card-title
+        >
+        <mat-card-content *ngFor="let wordPair of wordsByDate.wordPairs">
+            "{{wordPair.original.spelling}}"
+            <i>({{wordPair.original.language}})</i> —
+            {{wordPair.translation.spelling}}
+            <i>({{wordPair.translation.language}})</i>
+        </mat-card-content>
+    </mat-card>
+    <button mat-stroked-button color="accent" class="button add-new-button" (click)="openDialog()">
+        Add new word pair
+    </button>
+</form>
