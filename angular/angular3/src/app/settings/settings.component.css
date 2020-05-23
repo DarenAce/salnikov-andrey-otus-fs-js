@@ -1,0 +1,17 @@
+.settings-form {
+    padding: 20px;
+}
+
+.settings-form-select {
+    display: block;
+    width: 210px;
+    margin-bottom: 20px;
+}
+
+.button {
+    width: 100px;
+}
+
+.save-button {
+    margin-left: 8px;
+}

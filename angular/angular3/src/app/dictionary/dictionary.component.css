@@ -1,0 +1,14 @@
+.dictionary-form {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.words-card {
+    margin-bottom: 20px;
+}
+
+.add-new-button {
+    min-width: 100px;
+    align-self: start;
+}
