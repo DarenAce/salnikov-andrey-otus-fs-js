@@ -5,7 +5,7 @@ const localStorageKey: string = "weatherApp.cities";
 export const loadCities = (): City[] => {
     try {
         const serializedCities = localStorage.getItem(localStorageKey);
-        if (serializedCities === null) {
+        if (!serializedCities) {
             return [];
         }
         return JSON.parse(serializedCities);
@@ -20,3 +20,5 @@ export const saveCities = (cities: City[]): void => {
         localStorage.setItem(localStorageKey, serializedCities);
     } catch (err) {}
 };
+
+export default { loadCities, saveCities };

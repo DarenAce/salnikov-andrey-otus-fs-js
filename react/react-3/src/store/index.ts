@@ -6,8 +6,8 @@ import { loadCities, saveCities } from "../utils/storage";
 import { rootReducer, initialState } from "./reducers";
 
 const state: AppState = initialState;
-state.cities.favorites = loadCities();
+state.cities = loadCities();
 const store: Store = createStore(rootReducer, state, composeWithDevTools(applyMiddleware(thunk)));
-store.subscribe(() => saveCities((store.getState() as AppState).cities.favorites));
+store.subscribe(() => saveCities((store.getState() as AppState).cities));
 
 export default store;

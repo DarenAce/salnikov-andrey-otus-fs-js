@@ -9,20 +9,35 @@ export interface Weather {
     [key: string]: any;
 }
 
-export interface CitiesState {
-    selected: string | null;
-    favorites: City[];
+export interface WeatherConditions {
+    temperature: number | null;
+    pressure: number | null;
+    humidity: number | null;
+    wind: {
+        speed: number | null;
+        degrees: number | null;
+    };
 }
 
-export interface WeatherState {
-    current: Weather | null;
-    forecast: Weather | null;
+export type CurrentWeather = { city: string } & WeatherConditions;
+
+export type WeatherByTime = { time: number } & WeatherConditions;
+
+export interface WeatherByDate {
+    date: number;
+    dayWeather: WeatherByTime | null;
+    nightWeather: WeatherByTime | null;
+}
+
+export interface WeatherForecast {
+    city: string;
+    weatherByHours: WeatherByTime[];
 }
 
 export interface AppState {
-    cities: CitiesState;
-    weather: WeatherState;
-};
+    cities: City[];
+    current: string;
+}
 
 export interface AddCityAction extends Action<string> {
     payload: string;
@@ -54,6 +69,10 @@ export interface WeatherForecastHasBeenUpdatedAction extends Action<string> {
 
 export type CityAction = AddCityAction | RemoveCityAction | SelectCityAction;
 
-export type WeatherAction = UpdateCurrentWeatherAction | UpdateWeatherForecastAction | CurrentWeatherHasBeenUpdatedAction | WeatherForecastHasBeenUpdatedAction;
+export type WeatherAction =
+    | UpdateCurrentWeatherAction
+    | UpdateWeatherForecastAction
+    | CurrentWeatherHasBeenUpdatedAction
+    | WeatherForecastHasBeenUpdatedAction;
 
 export type AppAction = CityAction | WeatherAction;

@@ -22,7 +22,7 @@ const CityList = (props: CityListProps) => {
 };
 
 const mapStateToProps = (state: AppState) => ({
-    cities: state.cities.favorites
+    cities: state.cities
 });
 
 export default connect(mapStateToProps)(CityList)

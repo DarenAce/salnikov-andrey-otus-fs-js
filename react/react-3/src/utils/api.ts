@@ -1,38 +1,64 @@
-import { currentWeatherApiUrlWithId, weatherForecastApiUrlWithId } from "../config";
-import { Weather } from "../types";
+import {
+    CurrentWeather,
+    Weather,
+    WeatherForecast,
+    WeatherByTime,
+} from "../types";
+import {
+    currentWeatherApiUrlWithId,
+    weatherForecastApiUrlWithId,
+} from "../config";
 
-const loadWeather = async (city: string, baseUrl: string): Promise<Weather> => {
-    let weather = null;
-    const searchResponseResult = await fetch(`${baseUrl}&units=metric&q=${city}`);
+const loadWeather = async (
+    city: string,
+    baseUrl: string
+): Promise<Weather | null> => {
+    const searchResponseResult = await fetch(
+        `${baseUrl}&units=metric&q=${city}`
+    );
     if (searchResponseResult.status === 200) {
-        const response = await searchResponseResult.json();
-        weather = {
-            name: response.name,
-            ...response.main,
-            wind: response.wind
-        };
+        return await searchResponseResult.json();
     }
-    return weather;
+    return null;
 };
 
-// export const loadCurrentWeather = async (city: string): Promise<Weather> => {
-//     let weather = null;
-//     const searchResponseResult = await fetch(`${currentWeatherApiUrlWithId}&units=metric&q=${city}`);
-//     if (searchResponseResult.status === 200) {
-//         const response = await searchResponseResult.json();
-//         weather = {
-//             name: response.name,
-//             ...response.main,
-//             wind: response.wind
-//         };
-//     }
-//     return weather;
-// };
+export const loadCurrentWeather = async (
+    city: string
+): Promise<CurrentWeather> => {
+    const response = await loadWeather(city, currentWeatherApiUrlWithId);
+    return {
+        city,
+        temperature: response ? response.main.temp : null,
+        pressure: response ? response.main.pressure : null,
+        humidity: response ? response.main.humidity : null,
+        wind: {
+            speed: response ? response.wind.speed : null,
+            degrees: response ? response.wind.deg : null
+        }
+    };
+};
 
-export const loadCurrentWeather = async (city: string): Promise<Weather> => {
-    return loadWeather(city, currentWeatherApiUrlWithId);
-}
-
-export const loadWeatherForecast = async (city: string): Promise<Weather> => {
-    return loadWeather(city, weatherForecastApiUrlWithId);
+export const loadWeatherForecast = async (
+    city: string
+): Promise<WeatherForecast> => {
+    const response = await loadWeather(city, weatherForecastApiUrlWithId);
+    let weatherByHours: WeatherByTime[] = [];
+    if (response) {
+        weatherByHours = (response.list as [any]).map((weather) => {
+            return {
+                time: new Date(weather.dt_txt).getTime(),
+                temperature: weather.main.temp as number,
+                pressure: weather.main.pressure as number,
+                humidity: weather.main.humidity as number,
+                wind: {
+                    speed: weather.wind.speed as number,
+                    degrees: weather.wind.deg as number
+                }
+            };
+        });
+    }
+    return {
+        city,
+        weatherByHours: weatherByHours,
+    };
 };
