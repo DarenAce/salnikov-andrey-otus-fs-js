@@ -18,6 +18,7 @@ import { DictionaryComponent } from './dictionary/dictionary.component';
 import { StudyComponent } from './study/study.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AddWordDialogComponent } from './add-word-dialog/add-word-dialog.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -25,13 +26,11 @@ import { AddWordDialogComponent } from './add-word-dialog/add-word-dialog.compon
     DictionaryComponent,
     SettingsComponent,
     StudyComponent,
-    AddWordDialogComponent
-  ],
-  entryComponents: [
-    AddWordDialogComponent
+    AddWordDialogComponent,
+    PageNotFoundComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { WordPair } from "../app.interfaces";
 import { StorageService } from "../storage.service";
 import { translationDirectionToLanguagePair } from "../app.utils";
@@ -8,7 +8,7 @@ import { translationDirectionToLanguagePair } from "../app.utils";
     templateUrl: "./study.component.html",
     styleUrls: ["./study.component.css"],
 })
-export class StudyComponent implements OnInit {
+export class StudyComponent {
     isGameStarted: boolean;
     questionsTotal: number;
     questionNumber: number;
@@ -22,7 +22,14 @@ export class StudyComponent implements OnInit {
 
     constructor(private storage: StorageService) {}
 
-    ngOnInit() {
+    startGame() {
+        this.questionNumber = 0;
+        this.isGameStarted = true;
+        this.loadGameSettings();
+        this.startNewRound();
+    }
+
+    loadGameSettings() {
         const {
             numberOfQuestions,
             secondsPerQuestion,
@@ -40,12 +47,6 @@ export class StudyComponent implements OnInit {
                     word.original.language === languages[0] &&
                     word.translation.language === languages[1]
             );
-    }
-
-    startGame() {
-        this.questionNumber = 0;
-        this.isGameStarted = true;
-        this.startNewRound();
     }
 
     startNewRound() {

@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { NavLink } from "./app.interfaces";
+import { navLinks } from "./app.config";
 
 @Component({
     selector: "app-root",
@@ -8,9 +9,5 @@ import { NavLink } from "./app.interfaces";
 })
 export class AppComponent {
     title = "Learn Foreign Language";
-    navLinks: NavLink[] = [
-        { label: "Study", path: "/study" },
-        { label: "Dictionary", path: "/dictionary" },
-        { label: "Settings", path: "/settings" },
-    ];
+    navLinks: NavLink[] = navLinks;
 }

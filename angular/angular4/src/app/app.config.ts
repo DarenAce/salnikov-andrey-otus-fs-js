@@ -2,6 +2,7 @@ import {
     TranslationDirection,
     NumberSelectValue,
     TranslationDirectionSelectValue,
+    NavLink,
 } from "./app.interfaces";
 
 export const translationDirections: TranslationDirectionSelectValue[] = [
@@ -62,3 +63,9 @@ const appLocalStorageKeyPrefix = "learnLanguagesApp";
 export const localStorageWordListKey = appLocalStorageKeyPrefix + ".words";
 
 export const localStorageSettingsKey = appLocalStorageKeyPrefix + ".settings";
+
+export const navLinks: NavLink[] = [
+    { label: "Study", path: "study" },
+    { label: "Dictionary", path: "dictionary" },
+    { label: "Settings", path: "settings" },
+];
