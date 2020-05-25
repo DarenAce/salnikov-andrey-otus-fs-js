@@ -1,0 +1,267 @@
+* {
+    font-family: Helvetica, Arial, sans-serif;
+    color: #2b2a2a;
+    letter-spacing: calc(1rem / 16);
+}
+
+h1,
+h2 {
+    text-align: center;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.button {
+    border: 0;
+    padding: 0.5rem 1.25rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.button:active {
+    outline: none;
+}
+
+.container {
+    max-width: 45rem;
+    margin: 0 auto;
+    padding: 0.75rem;
+    box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.1);
+}
+
+.home-screen {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.favorites-section {
+    padding-right: 1rem;
+    box-shadow: calc(1rem / 8) 0 0 0 rgba(0, 0, 0, 0.1);
+}
+
+.favorites-header {
+    margin-top: 0;
+}
+
+.favorites-item {
+    display: flex;
+    line-height: 1rem;
+}
+
+.show-city-weather-link {
+    flex-grow: 1;
+    padding: 0.5rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.show-city-weather-link:hover,
+.show-city-weather-link:hover + .delete-button {
+    background-color: rgba(185, 222, 255, 0.5);
+    transition: 0.2s ease-in-out;
+}
+
+.show-city-weather-link:hover {
+    border-radius: 0.25rem 0 0 0.25rem;
+    transition: 0.2s ease-in-out;
+}
+
+.show-city-weather-link:hover + .delete-button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.delete-button {
+    position: relative;
+    width: 2rem;
+    padding: 0.5rem;
+    font-size: 0;
+}
+
+.delete-button::before,
+.delete-button::after {
+    content: "";
+    position: absolute;
+    visibility: hidden;
+    width: 1rem;
+    height: calc(3rem / 16);
+    top: calc((2rem - 3rem / 16) / 2);
+    left: 0.5rem;
+    background-color: black;
+    opacity: 0.8;
+    transform: rotate(-45deg);
+}
+
+.delete-button::before {
+    transform: rotate(45deg);
+}
+
+.delete-button:hover {
+    background-color: #b93a3a;
+    transition: 0.2s ease-in-out;
+}
+
+.delete-button:hover::before,
+.delete-button:hover::after {
+    visibility: visible;
+    background-color: white;
+    transition: 0.2s ease-in-out;
+}
+
+.show-city-weather-link:hover + .delete-button::before,
+.show-city-weather-link:hover + .delete-button::after {
+    visibility: visible;
+}
+
+.search-section {
+    padding-left: 1rem;
+}
+
+.search-form {
+    display: flex;
+}
+
+.search-field {
+    flex-grow: 1;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+.search-button,
+.home-link {
+    color: white;
+    background-color: rgb(52, 98, 197);
+}
+
+.search-button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.search-button:hover,
+.home-link:hover {
+    background-color: rgba(52, 98, 197, 0.8);
+    transition: background-color 0.2s ease-out;
+}
+
+.search-button:active,
+.home-link:active {
+    box-shadow: inset 0 0 0.25rem;
+}
+
+.city-weather-card {
+    display: flex;
+    flex-flow: column wrap;
+    margin-top: 0.75rem;
+    padding: 1.25rem;
+}
+
+.city-weather-header {
+    display: flex;
+    align-items: center;
+}
+
+.city-name {
+    flex-grow: 1;
+    font-size: 1.25rem;
+    text-align: left;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.add-to-favorites-button,
+.home-button {
+    padding: calc(3rem / 8);
+    font-size: 0;
+    color: white;
+    transition: all 0.2s;
+}
+
+.add-to-favorites-button svg,
+.home-button svg {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.add-to-favorites-button:hover,
+.home-button:hover {
+    transform: scale(1.1);
+    transition: all 0.2s;
+}
+
+.added-to-favorites {
+    fill: #fae805;
+}
+
+.city-forecast-header {
+    display: flex;
+    align-items: center;
+}
+
+.city-forecast-header h2 {
+    flex-grow: 1;
+    margin: 0;
+    margin-bottom: 0.5rem;
+    padding: 0;
+    line-height: 2rem;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.forecast-table {
+    margin: 0 auto;
+    border-spacing: 0;
+}
+
+.forecast-table th,
+.forecast-table td {
+    text-align: center;
+    padding: 0.5rem;
+}
+
+.forecast-table tbody th {
+    text-align: left;
+}
+
+.forecast-table thead th {
+    padding-top: 1.25rem;
+}
+
+.forecast-table thead th:nth-child(even) {
+    border-radius: 2rem 2rem 0 0;
+}
+
+.forecast-table tbody tr:last-child td {
+    padding-bottom: 1.25rem;
+}
+
+.forecast-table tbody tr:last-child td:nth-child(even) {
+    border-radius: 0 0 2rem 2rem;
+}
+
+.forecast-table th:nth-child(even),
+.forecast-table td:nth-child(even) {
+    background-color: rgba(185, 222, 255, 0.5);
+}
+
+.not-found {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
