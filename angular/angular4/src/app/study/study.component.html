@@ -1,0 +1,58 @@
+<button
+    *ngIf="!isGameStarted"
+    mat-stroked-button
+    color="accent"
+    class="play-button"
+    (click)="startGame()"
+>
+    Play!
+</button>
+<form
+    *ngIf="isGameStarted"
+    class="study-form"
+>
+    <div class="counter">
+        Question {{ questionNumber }} of {{ questionsTotal }}
+    </div>
+    <div class="timer">{{ time() }}</div>
+    <p [class]="['word-to-translate', checkResultClass]">
+        {{ wordToTranslate.original.spelling }}
+    </p>
+    <mat-form-field floatLabel="always" class="answer-block">
+        <mat-label>Translation</mat-label>
+        <input
+            matInput
+            type="text"
+            name="translation"
+            [(ngModel)]="translation"
+            autofocus
+            class="answer"
+        />
+        <button
+            *ngIf="translation"
+            mat-button
+            matSuffix
+            mat-icon-button
+            (click)="translation=''"
+        >
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+    <button
+        mat-stroked-button
+        color="accent"
+        class="button"
+        (click)="skipWord()"
+    >
+        Skip
+    </button>
+    <button
+        mat-stroked-button
+        color="accent"
+        [disabled]="!translation"
+        class="button"
+        (click)="checkAnswer()"
+    >
+        Check
+    </button>
+</form>

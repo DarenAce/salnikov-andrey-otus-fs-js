@@ -1,0 +1,17 @@
+.settings-form {
+    padding: 1rem;
+}
+
+.settings-form-select {
+    display: block;
+    width: 12.5rem;
+    margin-bottom: 1rem;
+}
+
+.button {
+    min-width: 6rem;
+}
+
+.save-button {
+    margin-left: 0.5rem;
+}

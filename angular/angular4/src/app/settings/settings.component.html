@@ -1,0 +1,61 @@
+<form class="settings-form">
+    <p>
+        <mat-form-field class="settings-form-select">
+            <mat-label>Translation direction</mat-label>
+            <mat-select [(value)]="selectedTranslationDirection">
+                <mat-option
+                    *ngFor="let direction of translationDirections"
+                    [value]="direction.value"
+                >
+                    {{direction.label}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field class="settings-form-select">
+            <mat-label># of questions</mat-label>
+            <mat-select [(value)]="selectedNumberOfQuestions">
+                <mat-option
+                    *ngFor="let number of numbersOfQuestions"
+                    [value]="number.value"
+                >
+                    {{number.label}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field class="settings-form-select">
+            <mat-label>Time per questuon</mat-label>
+            <mat-select [(value)]="selectedSecondsPerQuestion">
+                <mat-option
+                    *ngFor="let seconds of secondsPerQuestion"
+                    [value]="seconds.value"
+                >
+                    {{seconds.label}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </p>
+    <p>
+        <button
+            mat-stroked-button
+            [disabled]="!isAnySettingChanged()"
+            color="accent"
+            class="button reset-button"
+            (click)="onReset()"
+        >
+            Reset
+        </button>
+        <button
+            mat-stroked-button
+            [disabled]="!isAnySettingChanged()"
+            color="accent"
+            class="button save-button"
+            (click)="onSave()"
+        >
+            Save
+        </button>
+    </p>
+</form>

@@ -1,0 +1,19 @@
+<div class="container mat-app-background">
+    <header>
+        <h1 class="logo">{{title}}</h1>
+        <h2 class="tagline">Realy, man, it's time!</h2>
+    </header>
+    <nav mat-tab-nav-bar mat-stretch-tabs>
+        <a
+            *ngFor="let link of navLinks"
+            [routerLink]="link.path"
+            routerLinkActive
+            #rla="routerLinkActive"
+            mat-tab-link
+            [active]="rla.isActive"
+        >
+            {{link.label}}
+        </a>
+    </nav>
+    <router-outlet></router-outlet>
+</div>
